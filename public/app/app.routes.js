@@ -2,7 +2,6 @@
 angular.module('HackImpact')
 	.config([
 		'$routeProvider',
-		'$locationProvider',
 		routeConfigs,
 	]);
 
@@ -52,7 +51,4 @@ function routeConfigs($routeProvider, $locationProvider){
 			controller	: 'workRoomCtrl'
 		})
 
-
- 	// Add HTML5 History API support
-	$locationProvider.html5Mode(true)
 }

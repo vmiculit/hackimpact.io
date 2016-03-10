@@ -5,6 +5,8 @@
 <!-- STYLESHEETS -->
 	<!-- Bootstrap -->
 	<link rel="stylesheet" type="text/css" href="/css/lumen.bootstrap.min.css">
+	<!-- Animate.CSS -->
+	<link rel="stylesheet" type="text/css" href="/css/animate.css">
 	<!-- HackImpact CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 
@@ -26,7 +28,6 @@
 	<script type="text/javascript" src="/app/app.controllers.js"></script>
 
 	<title>HackImpact</title>
-	<base href="/">
 
 </head>
 <body>
@@ -35,7 +36,7 @@
 		<ng-include src="'/components/includes/navbar.html'"> </ng-include>
 
 	<!-- ngView templates -->
-		<div ng-view></div>
+		<div class="animated fadeIn" ng-view></div>
 
 	<!-- Include the Footer -->
 		<ng-include src="'/components/includes/footer.html'"> </ng-include>

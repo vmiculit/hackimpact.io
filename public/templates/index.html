@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="HackImpact">
+<head>
+
+<!-- STYLESHEETS -->
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="/css/lumen.bootstrap.min.css">
+	<!-- HackImpact CSS -->
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+<!-- SCRIPTS -->
+	<!-- Jquery -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<!-- RequireJS -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js"></script>
+	<!-- BootStrap JS -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- Base Angular -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+	<!-- Angular Route -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.min.js"></script>
+	<!-- HackImpact -->
+	<script type="text/javascript" src="/app/app.js"></script>
+	<script type="text/javascript" src="/app/app.routes.js"></script>
+	<script type="text/javascript" src="/app/app.factories.js"></script>
+	<script type="text/javascript" src="/app/app.controllers.js"></script>
+
+	<title>HackImpact</title>
+	<base href="/">
+
+</head>
+<body>
+	<div class="container">
+	<!-- Include the NavBar -->
+		<ng-include src="'/components/includes/navbar.html'"> </ng-include>
+
+	<!-- ngView templates -->
+		<div ng-view></div>
+
+	<!-- Include the Footer -->
+		<ng-include src="'/components/includes/footer.html'"> </ng-include>
+	</div>
+</body>
+</html>

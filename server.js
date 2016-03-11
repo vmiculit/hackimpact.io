@@ -1,27 +1,21 @@
-// Requires
+// Require, Create & Export Express App Object
 var express = require('express');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var mongoose = require('mongoose')
-
-// Create Express App Object
 var app = express();
+module.exports = app
 
-// Connect to DB
-mongoose.connect('mongodb://localhost/HackImpact')
+// DB Config & Connect
+require('./app/config/db.config.js')
 
-// Application Configuration
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+// App Config
+require('./app/config/app.config.js')
+
+// Passport, Session & Authetication Middleware Config
+require('./app/config/passport.config.js')
 
 // Routes
-app.get('/', function(req, res){
-  res.sendFile('index.html', {root : './public/templates'})
-});
+require('./app/controllers/routes.js')
 
-// Creating Server and Listening for Connections \\
+// Server Config
 var port = 3000
 app.listen(port, function(){
   console.log('Server running on port ' + port);

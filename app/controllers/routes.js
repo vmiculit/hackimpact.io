@@ -1,34 +1,42 @@
+// Requires
 var app = require('../../server.js')
 var passport = require('passport')
 var bcrypt = require('bcryptjs')
+var User = require('../modules/user.module.js')
 
-// Routes
+
+// File Routes
 app.get('/', function(req, res){
   res.sendFile('index.html', {root : './public/templates'})
 });
 
-// API
-app.post('/api/auth/login', function(req, res, next){
+
+// API Routes
+app.post('/api/auth/login', userLogin)
+app.get('/api/auth/logout', userLogout)
+app.post('/api/signup', userSignUp)
+
+
+// Functions
+
+function userLogin (req, res, next){
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
         if (!user) { return res.send({error : 'Incorrect Email or Password. Please try again.'}); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            return res.send({user: user});
+            return res.send({ userId: req.user._id });
         });
     })(req, res, next);
-})
-app.get('/api/auth/logout', function(req, res){
-	req.logOut()
-	// Improve me
-	res.send({success: 'success'})
-})
-app.post('/api/register/orgReg', function(req, res){
-	// Write me
-	console.log(req.body);
-	res.send({success: 'success'})
-})
-app.post('/api/register/hackReg', function(req, res){
+}
+
+function userLogout (req, res){
+    req.logOut()
+    // Improve me
+    res.send({success: 'success'})
+}
+
+function userSignUp (req, res){
     bcrypt.genSalt(10, function(error, salt){
         bcrypt.hash(req.body.password, salt, function(hashError, hash){
             var newUser = new User({
@@ -40,11 +48,11 @@ app.post('/api/register/hackReg', function(req, res){
                 else { 
                     req.login(user, function(loginErr){
                         if ( loginErr ) { res.send({ err:loginErr }) }
-                        else { res.send({user: req.user}) }
+                        else { res.send({ userId: req.user._id }) }
                     })
                 }
             })
             
         })
     })
-})
+}

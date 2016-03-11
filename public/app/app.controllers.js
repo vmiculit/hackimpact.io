@@ -1,19 +1,52 @@
 
 // Controllers
 angular.module('HackImpact')
-	.controller ('homeCtrl', ['$scope', homeCtrl])
-	.controller ('organizationsCtrl', ['$scope', organizationsCtrl])
-	.controller ('loginCtrl', ['$scope', '$http', loginCtrl])
-	.controller ('challengesCtrl', ['$scope', challengesCtrl])
-	.controller ('hackRegisterCtrl', ['$scope', '$http', hackRegisterCtrl])
-	.controller ('organizationRegisterCtrl', ['$scope', '$http', organizationRegisterCtrl])
-	.controller ('submitChallengeCtrl', ['$scope', submitChallengeCtrl])
-	.controller ('orgDashboardCtrl', ['$scope', orgDashboardCtrl])
-	.controller ('hackDashboardCtrl', ['$scope', hackDashboardCtrl])
-	.controller ('workRoomCtrl', ['$scope', workRoomCtrl])
+	.controller ('homeCtrl', [
+		'$scope',
+		homeCtrl
+	])
+	.controller ('organizationsCtrl', [
+		'$scope',
+		organizationsCtrl
+	])
+	.controller ('loginCtrl', [
+		'$scope',
+		'userFactory',
+		loginCtrl
+	])
+	.controller ('challengesCtrl', [
+		'$scope',
+		challengesCtrl
+	])
+	.controller ('hackRegisterCtrl', [
+		'$scope',
+		'userFactory',
+		hackRegisterCtrl
+	])
+	.controller ('organizationRegisterCtrl', [
+		'$scope',
+		organizationRegisterCtrl
+	])
+	.controller ('submitChallengeCtrl', [
+		'$scope',
+		submitChallengeCtrl
+	])
+	.controller ('orgDashboardCtrl', [
+		'$scope',
+		orgDashboardCtrl
+	])
+	.controller ('hackDashboardCtrl', [
+		'$scope',
+		'userFactory',
+		hackDashboardCtrl
+	])
+	.controller ('workRoomCtrl', [
+		'$scope',
+		workRoomCtrl
+	])
+
 
 // Controller Functions
-
 function homeCtrl ($scope){
 	console.log('homeCtrl Live!');
 }
@@ -22,14 +55,16 @@ function organizationsCtrl ($scope){
 	console.log('organizationsCtrl Live!');
 }
 
-function loginCtrl ($scope, $http){
+function loginCtrl ($scope, userFactory){
 
 	$scope.loginErrorMessage = ''
 
 	$scope.login = function(){
-		$http.post('/api/auth/login', $scope.loginForm).then(function(response){
-			if(response.data.user) {
-				console.log(response.data.user);
+		userFactory.userLogin($scope.loginForm)
+			.then(function(response){
+			if(response.data.userId) {
+				console.log(response.data.userId);
+				userFactory.userId = response.data.userId
 				$scope.loginErrorMessage = ''
 				// window.location.href="/"
 			} else {
@@ -46,30 +81,29 @@ function challengesCtrl ($scope){
 	console.log('challengesCtrl Live!');
 }
 
-function hackRegisterCtrl ($scope, $http){
+function hackRegisterCtrl ($scope, userFactory){
 
 	$scope.hackReg = function(){
-		$http.post('/api/register/hackReg', $scope.hackRegForm).then(function(response){
-			if (response.data.success) {
-			console.log(response.data);
+	userFactory.userSignUp($scope.hackRegForm)
+		.then(function(response){
+			if (response.data.userId)
+				userFactory.userId = response.data.userId
 				// window.location.href="/dashboard"
-			}
 		})
-
 	}
 }
 
-function organizationRegisterCtrl ($scope, $http){
+function organizationRegisterCtrl ($scope){
 
-	$scope.orgReg = function(){
-		$http.post('/api/register/orgReg', $scope.orgRegForm).then(function(response){
-			if (response.data.success) {
-			console.log(response.data);
-				// window.location.href="/dashboard"
-			}
-		})
+	// $scope.orgReg = function(){
+	// 	$http.post('/api/register/orgReg', $scope.orgRegForm).then(function(response){
+	// 		if (response.data.success) {
+	// 		console.log(response.data);
+	// 			// window.location.href="/dashboard"
+	// 		}
+	// 	})
 
-	}
+	// }
 }
 
 function submitChallengeCtrl ($scope){
@@ -80,7 +114,8 @@ function orgDashboardCtrl ($scope){
 	console.log('orgDashboardCtrl Live!');
 }
 
-function hackDashboardCtrl ($scope){
+function hackDashboardCtrl ($scope, userFactory){
+	$scope.userId = userFactory.userId
 	console.log('hackDashboardCtrl Live!');
 }
 

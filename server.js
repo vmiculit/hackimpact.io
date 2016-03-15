@@ -15,7 +15,7 @@ require('./app/config/passport.config.js')
 // Routes
 require('./app/controllers/routes.js')
 
-// Live Server Config
+// Live Server Configuration
 var port = 3000
 app.listen(port, function(){
   console.log('Server running on port ' + port);

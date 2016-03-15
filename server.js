@@ -15,8 +15,13 @@ require('./app/config/passport.config.js')
 // Routes
 require('./app/controllers/routes.js')
 
+if (process.env.environment === 'local') {
+	var port = 3000
+} else {
+	var port = 80
+}
+
 // Live Server Configuration
-app.set('port', process.env.PORT || 3000)
-app.listen(app.get('port'), function(){
-  console.log('Server running on port ' + app.get('port'));
+app.listen(port, function(){
+  console.log('Server running on port ' + port);
 })

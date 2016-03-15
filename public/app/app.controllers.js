@@ -32,6 +32,7 @@ angular.module('HackImpact')
 	])
 	.controller ('challengesCtrl', [
 		'$scope',
+		'challengeFactory',
 		challengesCtrl
 	])
 	.controller ('signupCtrl', [
@@ -49,15 +50,18 @@ angular.module('HackImpact')
 	])
 	.controller ('submitChallengeCtrl', [
 		'$scope',
+		'$window',
+		'challengeFactory',
 		submitChallengeCtrl
 	])
 	.controller ('nonprofitDashboardCtrl', [
 		'$scope',
+		'challengeFactory',
 		nonprofitDashboardCtrl
 	])
 	.controller ('coderDashboardCtrl', [
 		'$scope',
-		'userFactory',
+		'challengeFactory',
 		coderDashboardCtrl
 	])
 	.controller ('workRoomCtrl', [
@@ -108,13 +112,11 @@ function homeCtrl ($scope){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	console.log('homeCtrl Live!');
 }
 
 function nonprofitsCtrl ($scope){
 	// Check if user is logged in
 	$scope.checkUser()
-	console.log('nonprofitsCtrl Live!');
 }
 
 function loginCtrl ($scope, $window, userFactory){
@@ -142,11 +144,14 @@ function loginCtrl ($scope, $window, userFactory){
 	}
 }
 
-function challengesCtrl ($scope){
+function challengesCtrl ($scope, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	console.log('challengesCtrl Live!');
+	challengeFactory.retrieveActiveChallenges().then(function(response){
+		console.log(response.data)
+	})
+
 }
 
 function signupCtrl ($scope, $window, userFactory, Upload){
@@ -203,31 +208,48 @@ $scope.registerErrorMessage = ''
 	}
 }
 
-function submitChallengeCtrl ($scope){
+function submitChallengeCtrl ($scope, $window, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	console.log('submitChallengeCtrl Live!');
+	$scope.submitChallengeErrorMessage = ""
+
+	$scope.submitChallenge = function(){
+
+		// $scope.challengeForm.organizationId = $scope.$storage.organizationId
+		// $scope.challengeForm.createdby = $scope.$storage.userId
+
+		challengeFactory.createChallenge($scope.challengeForm)
+			.then(function(response){
+				if(response.data.success) {
+					$window.location.href="#/nonprofitDashboard"
+				} else {
+					$scope.submitChallengeErrorMessage = "Oops! Something went wrong."
+					console.log(response.data.error);
+				}
+			})
+	}
 }
 
-function nonprofitDashboardCtrl ($scope){
+function nonprofitDashboardCtrl ($scope, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	console.log('nonprofitDashboardCtrl Live!');
+	challengeFactory.retrieveUserChallenges().then(function(response){
+		console.log(response.data)
+	})
+
 }
 
-function coderDashboardCtrl ($scope, userFactory){
+function coderDashboardCtrl ($scope, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	console.log('coderDashboardCtrl Live!');
 }
 
 function workRoomCtrl ($scope){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	console.log('workRoomCtrl Live!');
 }
 

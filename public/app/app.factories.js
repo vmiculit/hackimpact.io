@@ -1,6 +1,7 @@
 // Factories
 angular.module('HackImpact')
 	.factory('userFactory', userFactory)
+	.factory('challengeFactory', challengeFactory)
 
 // Factory Functions
 
@@ -34,6 +35,29 @@ function userFactory ($http){
 		userLogin			: userLogin,
 		checkUser			: checkUser,
 		userLogout			: userLogout,
+
+	}
+}
+
+function challengeFactory ($http){
+
+	function createChallenge (regForm){
+		return $http.post('/api/createChallenge', regForm)
+	}
+
+	function retrieveUserChallenges (regForm){
+		return $http.get('/api/retrieveUserChallenges')
+	}
+
+	function retrieveActiveChallenges (regForm){
+		return $http.get('/api/retrieveActiveChallenges')
+	}
+
+	return {
+
+		createChallenge				: createChallenge,
+		retrieveUserChallenges		: retrieveUserChallenges,
+		retrieveActiveChallenges	: retrieveActiveChallenges,
 
 	}
 }

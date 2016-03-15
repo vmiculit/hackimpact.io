@@ -8,13 +8,13 @@ var challengeSchema = mongoose.Schema({
     type: { type: String},
     timeframe: { type: String},
     project: { type: String},
-    active: { type: Boolean, default: false},
-    pending: { type: Boolean, default: true},
-    organizationId: { type: Number, required: true},
+    active: { type: Boolean, default: true},
+    pending: { type: Boolean, default: false},
+    organizationId: { type: mongoose.Schema.ObjectId, ref: "organization" },
     followedby: { type: Array },
     pledgedby: { type: Array },
-    commitedby: { type: Number },
-    createdby: { type: Number },
+    commitedby: { type: mongoose.Schema.ObjectId, ref: "user" },
+    createdby: { type: mongoose.Schema.ObjectId, ref: "user" },
     timestamp: { type: Date, default: Date.now},
 });
 

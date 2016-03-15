@@ -4,6 +4,7 @@ var passport = require('passport')
 var bcrypt = require('bcryptjs')
 var User = require('../modules/user.module.js')
 var Organization = require('../modules/organization.module.js')
+var Challenge = require('../modules/challenge.module.js')
 var sendgrid = require('../modules/email.module.js')
 
 
@@ -14,11 +15,20 @@ app.get('/', function(req, res){
 
 
 // API Routes
+
+// Authentication
 app.post('/api/auth/login', userLogin)
 app.get('/api/auth/check', userCheck)
 app.get('/api/auth/logout', userLogout)
+
+// Registration
 app.post('/api/signup', userSignUp)
 app.post('/api/register', orgRegistration)
+
+// Challenge Operations
+app.post('/api/createChallenge', createChallenge)
+app.get('/api/retrieveUserChallenges', retrieveUserChallenges)
+app.get('/api/retrieveActiveChallenges', retrieveActiveChallenges)
 
 
 // Functions
@@ -136,5 +146,41 @@ function orgRegistration (req, res){
                 }
             })
         })
+    })
+}
+
+function createChallenge (req, res){
+    var newChallenge = new Challenge({
+        title: req.body.title,
+        description: req.body.description,
+        type: req.body.type,
+        timeframe: req.body.timeframe,
+        project: req.body.project,
+        organizationId: req.user.organizationId,
+        createdby: req.user._id,
+    });
+    newChallenge.save(function(saveErr, user){
+        if ( saveErr ) { res.send({ error : saveErr }) }
+        else { 
+            res.send({ success: true})
+        }
+                        
+    })
+    
+}
+
+function retrieveUserChallenges (req, res){
+    Challenge.find({ createdby : req.user._id }, function(err, userCreatedChallenges){
+
+        res.send(userCreatedChallenges)
+        
+    })
+}
+
+function retrieveActiveChallenges (req, res){
+    Challenge.find({ active : true }, function(err, activeChallenges){
+
+        res.send(activeChallenges)
+        
     })
 }

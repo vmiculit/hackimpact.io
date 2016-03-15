@@ -1,1 +1,29 @@
-submitChallenge
+<div class="col-sm-6 col-sm-offset-3">
+	<h1><span class="fa fa-pencil"></span> Submit Challenge</h1>
+
+    <div ng-if="submitChallengeErrorMessage" class="alert alert-danger animated fadeIn">{{submitChallengeErrorMessage}}</div>
+
+    <form ng-submit="submitChallenge()">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" ng-model="challengeForm.title" class="form-control" placeholder="title"/>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea ng-model="challengeForm.description" class="form-control" placeholder="describe your challenge in detail"/>
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <input type="text" ng-model="challengeForm.type" class="form-control" placeholder="type"/>
+        </div>
+        <div class="form-group">
+            <label>Timeframe</label>
+            <input type="text" ng-model="challengeForm.timeframe" class="form-control" placeholder="timeframe"/>
+        </div>
+        <div class="form-group">
+            <label>Project</label>
+            <input type="text" ng-model="challengeForm.project" class="form-control" placeholder="project name"/>
+         </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

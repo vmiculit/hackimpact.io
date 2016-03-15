@@ -6,10 +6,12 @@ angular.module('HackImpact')
 
 function userFactory ($http){
 
-	var userId
-
 	function userSignUp (regForm){
 		return $http.post('/api/signup', regForm)
+	}
+
+	function orgRegistration (regForm){
+		return $http.post('/api/register', regForm)
 	}
 
 	function userLogin (loginForm){
@@ -17,11 +19,21 @@ function userFactory ($http){
 
 	}
 
+	function checkUser () {
+		return $http.get('/api/auth/check')
+	}
+
+	function userLogout () {
+		return $http.get('/api/auth/logout')
+	}
+
 	return {
 
-		userSignUp		: userSignUp,
-		userId 			: userId,
-		userLogin		: userLogin,
+		userSignUp			: userSignUp,
+		orgRegistration		: orgRegistration,
+		userLogin			: userLogin,
+		checkUser			: checkUser,
+		userLogout			: userLogout,
 
 	}
 }

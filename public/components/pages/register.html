@@ -1,0 +1,51 @@
+<div class="col-sm-6 col-sm-offset-3">
+	<h1><span class="fa fa-sign-in"></span> Nonprofit Registration</h1>
+
+    <div ng-if="registerErrorMessage" class="alert alert-danger animated fadeIn">{{registerErrorMessage}}</div>
+
+    <form ng-submit="orgReg()">
+        <h3>Nonprofit Information</h3>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" ng-model="orgRegForm.orgName" class="form-control" placeholder="orgName"/>
+        </div>
+        <div class="form-group">
+            <label>Activity Summary</label>
+            <input type="text" ng-model="orgRegForm.activityShort" class="form-control" placeholder="activity in 140 characters"/>
+        </div>
+        <div class="form-group">
+            <label>Activity Description</label>
+            <textarea ng-model="orgRegForm.activityLong" class="form-control" placeholder="describe your activity with more detail"/>
+        </div>
+        <div class="form-group">
+            <label>Impact Location</label>
+            <input type="text" ng-model="orgRegForm.impactLocation" class="form-control" placeholder="ex: US, Africa, Russia"/>
+        </div>
+        <div class="form-group">
+            <label>Logo</label>
+            <input type="file" ng-model="orgRegForm.logo" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-select class="form-control"/>
+        </div>
+        <hr>
+        <h3>User Information</h3>
+    	<div class="form-group">
+    		<label>Email</label>
+        	<input type="text" ng-model="orgRegForm.email" class="form-control" placeholder="email"/>
+        </div>
+    	<div class="form-group">
+    		<label>Password</label>
+        	<input type="password" ng-model="orgRegForm.password" class="form-control" placeholder="password"/>
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" ng-model="orgRegForm.userName" class="form-control" placeholder="userName"/>
+        </div>
+        <div class="form-group">
+            <label>Profile Image</label>
+            <input type="file" ng-model="orgRegForm.image" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-select class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <hr>
+    <p>Are you a Coder? <a href="#/signup"> Sign Up here</p>
+
+</div>

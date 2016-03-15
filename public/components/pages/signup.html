@@ -1,0 +1,32 @@
+<div class="col-sm-6 col-sm-offset-3">
+	<h1><span class="fa fa-sign-in"></span> Coder Sign Up</h1>
+
+    <div ng-if="signupErrorMessage" class="alert alert-danger animated fadeIn">{{signupErrorMessage}}</div>
+
+    <form ng-submit="signup()">
+    	<div class="form-group">
+    		<label>Email</label>
+        	<input type="text" ng-model="signupForm.email" class="form-control" placeholder="email"/>
+        </div>
+    	<div class="form-group">
+    		<label>Password</label>
+        	<input type="password" ng-model="signupForm.password" class="form-control" placeholder="password"/>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" ng-model="signupForm.name" class="form-control" placeholder="name"/>
+        </div>
+        <div class="form-group">
+            <label>Skills</label>
+            <input type="text" ng-model="signupForm.skills" class="form-control" placeholder="ex: HTML, CSS, AngularJs, etc."/>
+        </div>
+        <div class="form-group">
+            <label>Profile Image</label>
+            <input type="file" ng-model="signupForm.image" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-select class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Signup</button>
+    </form>
+    <hr>
+    <p>Are you a Nonprofit? <a href="#/register"> Register here</p>
+</div>

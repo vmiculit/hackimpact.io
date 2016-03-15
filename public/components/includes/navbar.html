@@ -1,32 +1,46 @@
-<nav class="navbar navbar-default animated fadeInDown">
-  <div class="container-fluid">
+<nav ng-controller="navCtrl" class="navbar navbar-default navbar-fixed-top animated fadeInDown">
+  <div class="container">
 
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="#/">HackImpact</a>
+      <a class="navbar-brand" href="#/"> HackImpact</a>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="navbar-main">
 
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#/organizations">Orgs <span class="sr-only">(current)</span></a></li>
-        <li><a href="#/challenges">Chal</a></li>
-        <li><a href="#/hackRegister">HReg</a></li>
-        <li><a href="#/organizationRegister">OReg</a></li>
-        <li><a href="#/submitChallenge">SubC</a></li>
-        <li><a href="#/orgDashboard">ODsh</a></li>
-        <li><a href="#/hackDashboard">HDsh</a></li>
-        <li><a href="#/workRoom">WRm</a></li>
+        <li><a href="#/challenges">CHALLENGES <span class="sr-only">(current)</span></a></li>
+        <li><a href="#/nonprofits">NONPROFITS</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#/login">LI</a></li>
+        <li ng-show="!$parent.$storage.user.userId"><a href="#/signup">Sign Up</a></li>
+        <li ng-show="!$parent.$storage.user.userId"><a href="#/login">Login</a></li>
+        <li ng-show="$parent.$storage.user.userId"><a>Welcome,  {{$parent.$storage.user.name}}</a></li>
+        <li ng-show="$parent.$storage.user.userId">
+          <a class="btn btn-default btn-link">
+            <span class="badge">3</span>
+          </a>
+        </li>
+        <li ng-show="$parent.$storage.user.userId" class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <img ng-src="{{$parent.$storage.user.image}}" class="img-square user-profile-image">
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-show="$parent.$storage.user.userType == 'coder'"><a href="#/coderDashboard">My Challenges</a></li>
+            <li ng-show="$parent.$storage.user.userType == 'nonprofit'"><a href="#/nonprofitDashboard">My Challenges</a></li>
+            <li ng-show="$parent.$storage.user.type == 'nonprofit'"><a href="#/submitChallenge">Submit Challenge</a></li>
+            <li><a href="#/settings">Settings</a></li>
+            <li class="divider"></li>
+            <li><a ng-click="$parent.userLogout()" href="">Logout</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
 

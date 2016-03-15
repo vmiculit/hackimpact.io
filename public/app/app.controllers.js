@@ -1,16 +1,32 @@
 
 // Controllers
 angular.module('HackImpact')
+	// Stand Alone
+	.controller ('shellCtrl', [
+		'$scope',
+		'$sessionStorage',
+		'$window',
+		'userFactory',
+		shellCtrl
+	])
+	.controller ('navCtrl', [
+		'$scope',
+		'userFactory',
+		navCtrl
+	])
+
+	// Routed
 	.controller ('homeCtrl', [
 		'$scope',
 		homeCtrl
 	])
-	.controller ('organizationsCtrl', [
+	.controller ('nonprofitsCtrl', [
 		'$scope',
-		organizationsCtrl
+		nonprofitsCtrl
 	])
 	.controller ('loginCtrl', [
 		'$scope',
+		'$window',
 		'userFactory',
 		loginCtrl
 	])
@@ -18,27 +34,31 @@ angular.module('HackImpact')
 		'$scope',
 		challengesCtrl
 	])
-	.controller ('hackRegisterCtrl', [
+	.controller ('signupCtrl', [
 		'$scope',
+		'$window',
 		'userFactory',
-		hackRegisterCtrl
+		'Upload',
+		signupCtrl
 	])
-	.controller ('organizationRegisterCtrl', [
+	.controller ('registerCtrl', [
 		'$scope',
-		organizationRegisterCtrl
+		'$window',
+		'userFactory',
+		registerCtrl
 	])
 	.controller ('submitChallengeCtrl', [
 		'$scope',
 		submitChallengeCtrl
 	])
-	.controller ('orgDashboardCtrl', [
+	.controller ('nonprofitDashboardCtrl', [
 		'$scope',
-		orgDashboardCtrl
+		nonprofitDashboardCtrl
 	])
-	.controller ('hackDashboardCtrl', [
+	.controller ('coderDashboardCtrl', [
 		'$scope',
 		'userFactory',
-		hackDashboardCtrl
+		coderDashboardCtrl
 	])
 	.controller ('workRoomCtrl', [
 		'$scope',
@@ -47,78 +67,167 @@ angular.module('HackImpact')
 
 
 // Controller Functions
+// Stand Alone
+
+function shellCtrl($scope, $sessionStorage, $window, userFactory){
+	// Assignments
+	$scope.$storage = $sessionStorage
+	$scope.checkUser = checkUser
+	$scope.userLogout = userLogout
+
+	// Check if user is Logged In
+	$scope.checkUser()
+
+	// Functions
+	function checkUser (){
+		userFactory.checkUser().then(function(response){
+			if (!response.data.status) {
+				$scope.$storage.$reset()
+			}
+		})
+	}
+
+	function userLogout (){
+		userFactory.userLogout().then(function(response){
+			if (response.data.status) {
+				$scope.$storage.$reset()
+				$window.location.href = '#/'
+			}
+		})
+	}
+
+}
+
+function navCtrl ($scope, userFactory){
+	// Check if user is logged in
+	$scope.checkUser()
+}
+
+// Routed
 function homeCtrl ($scope){
+	// Check if user is logged in
+	$scope.checkUser()
+
 	console.log('homeCtrl Live!');
 }
 
-function organizationsCtrl ($scope){
-	console.log('organizationsCtrl Live!');
+function nonprofitsCtrl ($scope){
+	// Check if user is logged in
+	$scope.checkUser()
+	console.log('nonprofitsCtrl Live!');
 }
 
-function loginCtrl ($scope, userFactory){
+function loginCtrl ($scope, $window, userFactory){
+	// Check if user is logged in
+	$scope.checkUser()
 
 	$scope.loginErrorMessage = ''
 
 	$scope.login = function(){
 		userFactory.userLogin($scope.loginForm)
 			.then(function(response){
-			if(response.data.userId) {
-				console.log(response.data.userId);
-				userFactory.userId = response.data.userId
+			if(response.data.userId && response.data.userType == "coder") {
+				$scope.$storage.user = response.data
 				$scope.loginErrorMessage = ''
-				// window.location.href="/"
+				$window.location.href="#/coderDashboard"
+			} else if (response.data.userId && response.data.userType == "nonprofit") {
+				$scope.$storage.user = response.data
+				$scope.loginErrorMessage = ''
+				$window.location.href="#/nonprofitDashboard"
 			} else {
 				$scope.loginErrorMessage = response.data.error
 				console.log(response.data.error);
 			}
 		})
-
 	}
-
 }
 
 function challengesCtrl ($scope){
+	// Check if user is logged in
+	$scope.checkUser()
+
 	console.log('challengesCtrl Live!');
 }
 
-function hackRegisterCtrl ($scope, userFactory){
+function signupCtrl ($scope, $window, userFactory, Upload){
+	// Check if user is logged in
+	$scope.checkUser()
 
-	$scope.hackReg = function(){
-	userFactory.userSignUp($scope.hackRegForm)
-		.then(function(response){
-			if (response.data.userId)
-				userFactory.userId = response.data.userId
-				// window.location.href="/dashboard"
-		})
+	$scope.signupErrorMessage = ''
+
+	$scope.signup = function(){
+		$scope.signupForm.type = "coder"
+		$scope.signupForm.role = "user"
+		userFactory.userSignUp($scope.signupForm)
+			.then(function(response){
+				if(response.data.userId && response.data.userType == "coder") {
+					$scope.$storage.user = response.data
+					$scope.signupErrorMessage = ''
+					$window.location.href="#/coderDashboard"
+				} else if (response.data.userId && response.data.userType == "nonprofit") {
+					$scope.$storage.user = response.data
+					$scope.signupErrorMessage = ''
+					$window.location.href="#/nonprofitDashboard"
+				} else {
+					$scope.signupErrorMessage = "Email already in use. Try again."
+					console.log(response.data.error);
+				}
+			})
 	}
 }
 
-function organizationRegisterCtrl ($scope){
+function registerCtrl ($scope, $window, userFactory){
+	// Check if user is logged in
+	$scope.checkUser()
 
-	// $scope.orgReg = function(){
-	// 	$http.post('/api/register/orgReg', $scope.orgRegForm).then(function(response){
-	// 		if (response.data.success) {
-	// 		console.log(response.data);
-	// 			// window.location.href="/dashboard"
-	// 		}
-	// 	})
+$scope.registerErrorMessage = ''
 
-	// }
+	$scope.orgReg = function(){
+		$scope.orgRegForm.type = "nonprofit"
+		$scope.orgRegForm.role = "user"
+		userFactory.orgRegistration($scope.orgRegForm)
+			.then(function(response){
+				if(response.data.userId && response.data.userType == "coder") {
+					$scope.$storage.user = response.data
+					$scope.registerErrorMessage = ''
+					$window.location.href="#/coderDashboard"
+				} else if (response.data.userId && response.data.userType == "nonprofit") {
+					$scope.$storage.user = response.data
+					$scope.registerErrorMessage = ''
+					$window.location.href="#/nonprofitDashboard"
+				} else {
+					$scope.registerErrorMessage = "Email already in use. Try again."
+					console.log(response.data.error);
+				}
+			})
+	}
 }
 
 function submitChallengeCtrl ($scope){
+	// Check if user is logged in
+	$scope.checkUser()
+
 	console.log('submitChallengeCtrl Live!');
 }
 
-function orgDashboardCtrl ($scope){
-	console.log('orgDashboardCtrl Live!');
+function nonprofitDashboardCtrl ($scope){
+	// Check if user is logged in
+	$scope.checkUser()
+
+	console.log('nonprofitDashboardCtrl Live!');
 }
 
-function hackDashboardCtrl ($scope, userFactory){
-	$scope.userId = userFactory.userId
-	console.log('hackDashboardCtrl Live!');
+function coderDashboardCtrl ($scope, userFactory){
+	// Check if user is logged in
+	$scope.checkUser()
+
+	console.log('coderDashboardCtrl Live!');
 }
 
 function workRoomCtrl ($scope){
+	// Check if user is logged in
+	$scope.checkUser()
+
 	console.log('workRoomCtrl Live!');
 }
+

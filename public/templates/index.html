@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html ng-app="HackImpact">
+<html lang="en" ng-app="HackImpact">
 <head>
-
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="./bower_components/html5shiv/dist/html5shiv.js"></script>
+    <script src="./bower_components/respond/dest/respond.min.js"></script>
+    <![endif]-->
+    
 <!-- STYLESHEETS -->
 	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="/css/lumen.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/superhero.bootstrap.min.css">
 	<!-- Animate.CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/animate.css">
 	<!-- Font Awesome -->
@@ -15,14 +26,16 @@
 <!-- SCRIPTS -->
 	<!-- Jquery -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-	<!-- RequireJS -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js"></script>
 	<!-- BootStrap JS -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- Base Angular -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
 	<!-- Angular Route -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.min.js"></script>
+	<!-- Angular Storage -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+	<!-- Angular File Upload -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.1/ng-file-upload.js"></script>
 	<!-- HackImpact -->
 	<script type="text/javascript" src="/app/app.js"></script>
 	<script type="text/javascript" src="/app/app.routes.js"></script>
@@ -32,16 +45,16 @@
 	<title>HackImpact</title>
 
 </head>
-<body>
-	<div class="container">
+<body ng-controller="shellCtrl">
+<div class="container">
 	<!-- Include the NavBar -->
-		<ng-include src="'/components/includes/navbar.html'"> </ng-include>
+		<ng-include src="'/components/includes/navbar.html'"> </ng-include>	
 
 	<!-- ngView templates -->
 		<div class="animated fadeIn" ng-view></div>
 
 	<!-- Include the Footer -->
 		<ng-include src="'/components/includes/footer.html'"> </ng-include>
-	</div>
+</div>
 </body>
 </html>

@@ -14,9 +14,9 @@ function routeConfigs($routeProvider, $locationProvider){
 			templateUrl	: '/components/pages/home.html',
 			controller	: 'homeCtrl'
 		})
-		.when('/organizations', {
-			templateUrl	: '/components/pages/organizations.html',
-			controller	: 'organizationsCtrl'
+		.when('/nonprofits', {
+			templateUrl	: '/components/pages/nonprofits.html',
+			controller	: 'nonprofitsCtrl'
 		})
 		.when('/login', {
 			templateUrl	: '/components/pages/login.html',
@@ -26,25 +26,25 @@ function routeConfigs($routeProvider, $locationProvider){
 			templateUrl	: '/components/pages/challenges.html',
 			controller	: 'challengesCtrl'
 		})
-		.when('/hackRegister', {
-			templateUrl	: '/components/pages/hackRegister.html',
-			controller	: 'hackRegisterCtrl'
+		.when('/signup', {
+			templateUrl	: '/components/pages/signup.html',
+			controller	: 'signupCtrl'
 		})
-		.when('/organizationRegister', {
-			templateUrl	: '/components/pages/organizationRegister.html',
-			controller	: 'organizationRegisterCtrl'
+		.when('/register', {
+			templateUrl	: '/components/pages/register.html',
+			controller	: 'registerCtrl'
 		})
 		.when('/submitChallenge', {
 			templateUrl	: '/components/pages/submitChallenge.html',
 			controller	: 'submitChallengeCtrl'
 		})
-		.when('/orgDashboard', {
-			templateUrl	: '/components/pages/orgDashboard.html',
-			controller	: 'orgDashboardCtrl'
+		.when('/nonprofitDashboard', {
+			templateUrl	: '/components/pages/nonprofitDashboard.html',
+			controller	: 'nonprofitDashboardCtrl'
 		})
-		.when('/hackDashboard', {
-			templateUrl	: '/components/pages/hackDashboard.html',
-			controller	: 'hackDashboardCtrl'
+		.when('/coderDashboard', {
+			templateUrl	: '/components/pages/coderDashboard.html',
+			controller	: 'coderDashboardCtrl'
 		})
 		.when('/workRoom', {
 			templateUrl	: '/components/pages/workRoom.html',

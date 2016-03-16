@@ -42,7 +42,13 @@ a:hover {
 }
 
 .jumbotron {
-  background-color: #35536a;
+  background: 
+    linear-gradient(
+        rgba(53, 83, 106, 0.65), 
+        rgba(53, 83, 106, 0.65)
+      ),
+    url(/images/hacker-hero.jpg) center center no-repeat #35536a;
+    background-size: cover;
 }
 
 .badge {

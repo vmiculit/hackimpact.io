@@ -32,6 +32,7 @@ angular.module('HackImpact')
 	])
 	.controller ('challengesCtrl', [
 		'$scope',
+		'$window',
 		'challengeFactory',
 		challengesCtrl
 	])
@@ -144,7 +145,7 @@ function loginCtrl ($scope, $window, userFactory){
 	}
 }
 
-function challengesCtrl ($scope, challengeFactory){
+function challengesCtrl ($scope, $window, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
 
@@ -161,9 +162,7 @@ function challengesCtrl ($scope, challengeFactory){
 		var challengeId = $scope.activeChallenges[challengeIdx]._id
 
 		challengeFactory.commitCoderToChallenge(challengeId).then(function(response){
-
-		console.log(response.data)
-
+			$window.location.href="#/coderDashboard"
 		})
 	}
 
@@ -183,7 +182,7 @@ function signupCtrl ($scope, $window, userFactory, Upload){
 				if(response.data.userId && response.data.userType == "coder") {
 					$scope.$storage.user = response.data
 					$scope.signupErrorMessage = ''
-					$window.location.href="#/coderDashboard"
+					$window.location.href="#/challenges"
 				} else if (response.data.userId && response.data.userType == "nonprofit") {
 					$scope.$storage.user = response.data
 					$scope.signupErrorMessage = ''
@@ -210,7 +209,7 @@ $scope.registerErrorMessage = ''
 				if(response.data.userId && response.data.userType == "coder") {
 					$scope.$storage.user = response.data
 					$scope.registerErrorMessage = ''
-					$window.location.href="#/coderDashboard"
+					$window.location.href="#/challenges"
 				} else if (response.data.userId && response.data.userType == "nonprofit") {
 					$scope.$storage.user = response.data
 					$scope.registerErrorMessage = ''

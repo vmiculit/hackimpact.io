@@ -35,7 +35,8 @@
                 <p>{{challenge.description}} ... <a href="">read more</a></p>
                 <p>Type: {{challenge.type}}</p>
                 <p>Timeframe: {{challenge.timeframe}}</p>
-                <a ng-click="solveChallenge($challengeIdx)" type="button" class="btn btn-primary text-center">solve</a>
+                <a ng-show="$parent.$storage.user.userId" ng-click="solveChallenge($challengeIdx)" type="button" class="btn btn-primary text-center">solve</a>
+                <a ng-show="!$parent.$storage.user.userId" type="button" class="btn btn-primary text-center" href="#/signup">signup to solve</a>
             </div>
     </div>
 </div>

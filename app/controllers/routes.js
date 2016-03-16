@@ -117,7 +117,6 @@ function orgRegistration (req, res){
             newOrganization.save(function(saveErr, organization){
                 if ( saveErr ) { res.send({ error : saveErr }) }
                 else { 
-                    console.log("orgId: "+ organization._id)
                     req.body.organizationId = organization._id
 
                     var newUser = new User({
@@ -202,7 +201,6 @@ function retrieveActiveChallenges (req, res){
 }
 
 function commitCoderToChallenge (req, res){
-    console.log(req.body.challengeId)
     Challenge.update({_id: req.body.challengeId}, {commitedby: req.user._id},
         function(err, challenge){
             if(err){ res.send(err)}

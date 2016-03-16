@@ -1,23 +1,89 @@
-/*General*/
-body { padding-top: 75px; }
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
 
-nav {
-	z-index: 100;
+/*General*/
+body { 
+  padding-top: 80px;
+  font-family: 'Varela Round', sans-serif;
+  background: #143752;
+}
+
+h5 {
+  font-size: 2.5rem;
 }
 
 a:hover {
-	text-decoration: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #dd6929;
+}
+
+.btn-info {
+  background-color: #67ab95;
+}
+
+.btn-sm {
+  font-size: 1.7rem;
+}
+
+.jumbotron {
+  background-color: #35536a;
+}
+
+.badge {
+  background-color: #67ab95 !important;
+  color: #ffffff !important;
+  }
+
+.featured-content > i {
+  font-size: 8rem;
+  color:  #67ab95;
+  padding:  20px;
 }
 
 /*NavBar*/
+nav {
+  z-index: 100;
+}
+
+.navbar-nav > li > a:hover {
+  background-color: #ffffff !important;
+}
+
+.nav>li>a:focus {
+  background: #ffffff !important;
+}
+
+.navbar-default {
+  background-color: #ffffff;
+}
+
+.dropdown-menu {
+  background-color: #ffffff;
+}
+
+.dropdown-menu>li>a:hover{
+  background: #ffffff !important;
+}
+
+.dropdown-menu>li>a:focus{
+  background: #ffffff !important;
+}
 .user-profile-image {
-	width: 40px;
-	height: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.navbar-logo {
+  margin-top: 8px;
+  height: 35px;
 }
 
 .navbar-brand,
 .navbar-nav li a {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
+    color: #362f2d !important;
     line-height: 55px;
     height: 55px;
     padding-top: 0;

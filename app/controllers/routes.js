@@ -107,6 +107,7 @@ function orgRegistration (req, res){
             var newOrganization = new Organization({
                 name: req.body.orgName,
                 // logo: req.body.logo,
+                website: req.body.website,
                 activityShort: req.body.activityShort,
                 activityLong: req.body.activityLong,
                 impactLocation: req.body.impactLocation.split(', '),

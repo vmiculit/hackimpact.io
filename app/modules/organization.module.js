@@ -5,6 +5,7 @@ var mongoose = require('mongoose')
 var organizationSchema = mongoose.Schema({
     name: { type: String, required: true },
     logo: { type: String, default: '/images/default-nonprofit-logo.jpg' },
+    website: { type: String},
     activityShort: { type: String},
     activityLong: { type: String},
     impactLocation: { type: Array, default: ['Worldwide']},

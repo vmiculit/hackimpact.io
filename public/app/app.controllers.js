@@ -149,8 +149,23 @@ function challengesCtrl ($scope, challengeFactory){
 	$scope.checkUser()
 
 	challengeFactory.retrieveActiveChallenges().then(function(response){
-		console.log(response.data)
+		if(!response.data.error){
+			$scope.activeChallenges = response.data
+		} else {
+			console.log(response.data.error)
+		}
 	})
+
+	$scope.solveChallenge = function(challengeIdx){
+
+		var challengeId = $scope.activeChallenges[challengeIdx]._id
+
+		challengeFactory.commitCoderToChallenge(challengeId).then(function(response){
+
+		console.log(response.data)
+
+		})
+	}
 
 }
 
@@ -235,8 +250,13 @@ function nonprofitDashboardCtrl ($scope, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
 
-	challengeFactory.retrieveUserChallenges().then(function(response){
-		console.log(response.data)
+	challengeFactory.retrieveNonprofitChallenges().then(function(response){
+		if(!response.data.error){
+			$scope.nonprofitChallenges = response.data
+			$scope.nonprofitChallengesCount = response.data.length
+		} else {
+			console.log(response.data.error)
+		}
 	})
 
 }
@@ -244,6 +264,15 @@ function nonprofitDashboardCtrl ($scope, challengeFactory){
 function coderDashboardCtrl ($scope, challengeFactory){
 	// Check if user is logged in
 	$scope.checkUser()
+
+	challengeFactory.retrieveCoderChallenges().then(function(response){
+		if(!response.data.error){
+			$scope.coderChallenges = response.data
+			$scope.coderChallengeCount = response.data.length
+		} else {
+			console.log(response.data.error)
+		}
+	})
 
 }
 

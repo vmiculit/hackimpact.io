@@ -45,19 +45,29 @@ function challengeFactory ($http){
 		return $http.post('/api/createChallenge', regForm)
 	}
 
-	function retrieveUserChallenges (regForm){
-		return $http.get('/api/retrieveUserChallenges')
+	function retrieveCoderChallenges (){
+		return $http.get('/api/retrieveCoderChallenges')
 	}
 
-	function retrieveActiveChallenges (regForm){
+	function retrieveNonprofitChallenges (){
+		return $http.get('/api/retrieveNonprofitChallenges')
+	}
+
+	function retrieveActiveChallenges (){
 		return $http.get('/api/retrieveActiveChallenges')
+	}
+
+	function commitCoderToChallenge (challengeId){
+		return $http.post('/api/commitCoderToChallenge', {challengeId: challengeId})
 	}
 
 	return {
 
 		createChallenge				: createChallenge,
-		retrieveUserChallenges		: retrieveUserChallenges,
+		retrieveCoderChallenges		: retrieveCoderChallenges,
+		retrieveNonprofitChallenges	: retrieveNonprofitChallenges,
 		retrieveActiveChallenges	: retrieveActiveChallenges,
+		commitCoderToChallenge		: commitCoderToChallenge,
 
 	}
 }

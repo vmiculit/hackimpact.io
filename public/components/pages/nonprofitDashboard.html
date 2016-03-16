@@ -1,6 +1,20 @@
-<h1>Nonprofit Dashboard</h1>
-<p>userId: {{$parent.$storage.user.userId}}</p>
-<p>organizationId: {{$parent.$storage.user.organizationId}}</p>
-<p>userType: {{$parent.$storage.user.userType}}</p>
-<p>userRole: {{$parent.$storage.user.userRole}}</p>
-<a class="btn btn-default" href="#/submitChallenge">Submit Challenge</a>
+<h1>Welcome, {{$parent.$storage.user.name}}</h1>
+<div class="col-sm-10 col-xs-11 challenge-container">
+    <div class="row challenge-row" ng-repeat="($challengeIdx, challenge) in nonprofitChallenges">
+            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                <h5>{{challenge.title}}</h5>
+                <p>{{challenge.description}}</p>
+            </div>
+            <div class=" col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                <p>Type: {{challenge.type}}</p>
+                <p>Timeframe: {{challenge.timeframe}}</p>
+                <a type="button" class="btn btn-primary text-center">go to workroom</a>
+            </div>
+    </div>
+</div>
+<div class="hidden-xs col-xs-1 col-sm-2" id="sidebar">
+<a type="button" class="btn btn-link" href="#/submitChallenge">create new challenge</a>
+<a type="button" href="" class="btn btn-link"><span class="badge">{{nonprofitChallengesCount}}</span> in progress</a>
+<a type="button" href="" class="btn btn-link"><span class="badge">0</span> pending</a>
+<a type="button" href="" class="btn btn-link"><span class="badge">0</span> archive</a>
+</div>

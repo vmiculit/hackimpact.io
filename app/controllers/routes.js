@@ -27,8 +27,10 @@ app.post('/api/register', orgRegistration)
 
 // Challenge Operations
 app.post('/api/createChallenge', createChallenge)
-app.get('/api/retrieveUserChallenges', retrieveUserChallenges)
+app.get('/api/retrieveCoderChallenges', retrieveCoderChallenges)
+app.get('/api/retrieveNonprofitChallenges', retrieveNonprofitChallenges)
 app.get('/api/retrieveActiveChallenges', retrieveActiveChallenges)
+app.post('/api/commitCoderToChallenge', commitCoderToChallenge)
 
 
 // Functions
@@ -74,9 +76,9 @@ function userSignUp (req, res){
                 password: hash,
                 type: req.body.type,
                 role: req.body.role,
-                // organizationId: req.body.organizationId,
+                // organizationId: ,
                 name: req.body.name,
-                // image: req.body.image,
+                image: req.body.image,
                 skills: req.body.skills.split(', '),
             });
             newUser.save(function(saveErr, user){
@@ -106,7 +108,7 @@ function orgRegistration (req, res){
             
             var newOrganization = new Organization({
                 name: req.body.orgName,
-                // logo: req.body.logo,
+                logo: req.body.logo,
                 website: req.body.website,
                 activityShort: req.body.activityShort,
                 activityLong: req.body.activityLong,
@@ -125,7 +127,7 @@ function orgRegistration (req, res){
                         role: req.body.role,
                         organizationId: req.body.organizationId,
                         name: req.body.userName,
-                        // image: req.body.image,
+                        image: req.body.image,
                     });
                     newUser.save(function(saveErr, user){
                         if ( saveErr ) { res.send({ error : saveErr }) }
@@ -162,26 +164,49 @@ function createChallenge (req, res){
     });
     newChallenge.save(function(saveErr, user){
         if ( saveErr ) { res.send({ error : saveErr }) }
-        else { 
-            res.send({ success: true})
-        }
+            else { 
+                res.send({ success: true})
+            }
                         
     })
     
 }
 
-function retrieveUserChallenges (req, res){
-    Challenge.find({ createdby : req.user._id }, function(err, userCreatedChallenges){
+function retrieveCoderChallenges (req, res){
+        Challenge.find({ commitedby : req.user._id }, 
+            function(err, coderCommitedChallenges){
+                if (err) { res.send(err) }
+                    else { res.send(coderCommitedChallenges) }
+        })
+}
 
-        res.send(userCreatedChallenges)
-        
-    })
+function retrieveNonprofitChallenges (req, res){
+        Challenge.find({ createdby : req.user._id }, 
+            function(err, nonprofitCreatedChallenges){
+                if (err) { res.send(err) }
+                    else { res.send(nonprofitCreatedChallenges) }
+        })
 }
 
 function retrieveActiveChallenges (req, res){
-    Challenge.find({ active : true }, function(err, activeChallenges){
 
-        res.send(activeChallenges)
+    Challenge.find({ active : true })
+        .populate('organizationId commitedby createdby pledgedby followedby')
+        .exec(function(err, activeChallenges){
+            if ( err ) { res.send({ error : err }) }
+                else {
+                    res.send(activeChallenges)
+                }
         
     })
 }
+
+function commitCoderToChallenge (req, res){
+    console.log(req.body.challengeId)
+    Challenge.update({_id: req.body.challengeId}, {commitedby: req.user._id},
+        function(err, challenge){
+            if(err){ res.send(err)}
+                else{res.send({updated: true})}
+        })
+}
+

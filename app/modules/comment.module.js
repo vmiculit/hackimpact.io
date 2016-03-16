@@ -3,8 +3,8 @@ var mongoose = require('mongoose')
 
 // Comment Schema
 var commentSchema = mongoose.Schema({
-    userId: { type: Number, required: true },
-    challengeId: { type: Number, required: true },
+    userId: { type: mongoose.Schema.ObjectId, ref: "user" },
+    challengeId: { type: mongoose.Schema.ObjectId, ref: "challenge" },
     content: { type: String},
     private: { type: Boolean, default: false},
     new: { type: Boolean, default: true},

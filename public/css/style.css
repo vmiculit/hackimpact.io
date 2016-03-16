@@ -27,6 +27,20 @@ a:hover {
   font-size: 1.7rem;
 }
 
+.btn-link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.btn-link:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.btn-link:focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .jumbotron {
   background-color: #35536a;
 }
@@ -91,15 +105,27 @@ nav {
 
 /*SideBar*/
 #sidebar {
-	background-color: grey;
+	background-color: #35536a;
 }
 
 /*Challenge*/
 
 .challenge-container {
-	background-color: grey;
-	padding: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
+.challenge-row {
+	background-color: #35536a;
+	padding: 10px;
+  margin-bottom: 10px;
+}
+
+.challenge-img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+/*Dashboard*/
 
 /*
  * off canvas sidebar

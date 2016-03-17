@@ -137,6 +137,11 @@ nav {
 
 }
 
+.charities-image {
+  max-width: 475px;
+  padding-right: 30px;
+}
+
 /*Chat*/
 .loggedInUsers {
     border: 2px solid black;

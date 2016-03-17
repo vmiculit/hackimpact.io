@@ -1,5 +1,5 @@
 <div class="col-sm-6 col-sm-offset-3">
-	<h1><span class="fa fa-sign-in"></span> Nonprofit Registration</h1>
+	<h1><span class="fa fa-sign-in"></span> Charity Registration</h1>
 
     <div ng-if="registerErrorMessage" class="alert alert-danger animated fadeIn">{{registerErrorMessage}}</div>
 
@@ -7,7 +7,7 @@
         <h3>Nonprofit Information</h3>
         <div class="form-group">
             <label>Name</label>
-            <input type="text" ng-model="orgRegForm.orgName" class="form-control" placeholder="orgName"/>
+            <input type="text" ng-model="orgRegForm.orgName" class="form-control" placeholder="name"/>
         </div>
         <div class="form-group">
             <label>Activity Summary</label>
@@ -15,7 +15,11 @@
         </div>
         <div class="form-group">
             <label>Activity Description</label>
-            <textarea ng-model="orgRegForm.activityLong" class="form-control" placeholder="describe your activity with more detail"/>
+            <textarea ng-model="orgRegForm.activityLong" class="form-control" placeholder="describe your activity in more detail"/>
+        </div>
+        <div class="form-group">
+            <label>Cause</label>
+            <input type="text" ng-model="orgRegForm.cause" class="form-control" placeholder="ex: Children"/>
         </div>
         <div class="form-group">
             <label>Impact Location</label>

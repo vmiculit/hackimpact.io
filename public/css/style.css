@@ -131,13 +131,36 @@ nav {
   max-height: 200px;
 }
 
+/*Chat*/
+.loggedInUsers {
+    border: 2px solid black;
+    min-height: 20px;
+    width: 20vw;
+    float: right;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.chatHistory {
+    border: 2px solid black;
+    min-height: 500px;
+    width: 70vw;
+    overflow: hidden;
+}
+
+.chatBox {
+    height: 40px;
+    width: 70vw;
+    font-size: 26px;
+}
+
 /*Dashboard*/
 
 /*
  * off canvas sidebar
  * --------------------------------------------------
  */
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
   .row-offcanvas {
     position: relative;
     -webkit-transition: all 0.25s ease-out;
@@ -160,4 +183,4 @@ nav {
   #sidebar, #sidebar a, #sidebar-footer a {
     padding-left:3px;
   }
-}
+}*/

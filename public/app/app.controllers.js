@@ -67,6 +67,7 @@ angular.module('HackImpact')
 	])
 	.controller ('workRoomCtrl', [
 		'$scope',
+		'$http',
 		workRoomCtrl
 	])
 
@@ -275,9 +276,48 @@ function coderDashboardCtrl ($scope, challengeFactory){
 
 }
 
-function workRoomCtrl ($scope){
+function workRoomCtrl ($scope, $http){
 	// Check if user is logged in
 	$scope.checkUser()
 
+	$scope.chatMessage = ''
+    $scope.loggedInUsers = []
+    $scope.messageHistory = []
+    $scope.user = $scope.$storage.user
+
+    var socket = io()
+    socket.on('loggedInUsers', function(data){
+            $scope.loggedInUsers = data
+            console.log($scope.loggedInUsers)
+            
+            $scope.$apply()
+            console.log(data)
+    })
+    socket.on('chatMessage', function(data){
+        console.log('chat message? ', data)
+        $scope.messageHistory.push(data)
+        $scope.$apply()
+    })
+    socket.on('whisper', function(data){
+        console.log(data.sender + ': ' + data.content)
+    })
+    $scope.sendMessage = function(event){
+            // first, check if the key pressed was the return key
+            if ( event.which === 13 ) {
+                if ( $scope.chatMessage[0] != '/' ) {
+                    socket.emit('chatMessage', $scope.chatMessage)
+                }
+                else {
+                    var recipient = $scope.chatMessage.split(' ')[0].slice(1)
+                    var content   = $scope.chatMessage.split(' ').slice(1).join(' ')
+                    // var recipient = $scope.chatMessage
+                    socket.emit('whisper', {
+                        recipient:recipient,
+                        content:content
+                    })
+                }
+                $scope.chatMessage = ''
+            }
+        }
 }
 

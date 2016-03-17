@@ -112,6 +112,7 @@ function orgRegistration (req, res){
                 website: req.body.website,
                 activityShort: req.body.activityShort,
                 activityLong: req.body.activityLong,
+                cause: req.body.cause,
                 impactLocation: req.body.impactLocation.split(', '),
             })
             newOrganization.save(function(saveErr, organization){
@@ -189,7 +190,7 @@ function retrieveNonprofitChallenges (req, res){
 
 function retrieveActiveChallenges (req, res){
 
-    Challenge.find({ active : true })
+    Challenge.find({ active : true }).sort('-timestamp')
         .populate('organizationId commitedby createdby pledgedby followedby')
         .exec(function(err, activeChallenges){
             if ( err ) { res.send({ error : err }) }

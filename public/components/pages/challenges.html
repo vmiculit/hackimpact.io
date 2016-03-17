@@ -1,17 +1,17 @@
 
 <!-- sidebar -->
-<!-- <div class="col-sm-2 col-xs-1" id="sidebar">
-  	<h5>Filters</h5> -->
-  	<!-- <ul class="nav">
+<div class="col-sm-2 col-xs-1" id="sidebar">
+  	<h4><i class="fa fa-sliders"></i> Filters</h4>
+<!--   	<ul class="nav">
 			<li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="fa fa-chevron-right"></i></a></li>
-	</ul>
+	</ul> -->
    
     <ul class="nav hidden-xs" id="lg-menu">
         <li class="active"><a href="#featured"><i class="fa fa-list-alt"></i> Featured</a></li>
         <li><a href="#stories"><i class="fa fa-list"></i> Stories</a></li>
         <li><a href="#"><i class="fa fa-paperclip"></i> Saved</a></li>
         <li><a href="#"><i class="fa fa-refresh"></i> Refresh</a></li>
-    </ul> -->
+    </ul>
   
   	<!-- tiny only nav-->
 <!--       <ul class="nav visible-xs" id="xs-menu">
@@ -21,22 +21,29 @@
         <li><a href="#" class="text-center"><i class="fa fa-refresh"></i></a></li>
     </ul> -->
   
-<!-- </div> -->
+</div>
 <!-- /sidebar -->
   
 <!-- main right col -->
-<div class=" col-xs-12 challenge-container">
+<div class=" col-xs-10 challenge-container">
     <div class="row challenge-row" ng-repeat="($challengeIdx, challenge) in activeChallenges">
-            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 text-center">
                 <img class="challenge-img" ng-src="{{challenge.organizationId.logo}}">
+                <a href="{{challenge.organizationId.website}}" target="_blank">{{challenge.organizationId.name}}</a>
+                <p>"{{challenge.organizationId.activityShort}}"</p>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
                 <h5>{{challenge.title}}</h5>
                 <p>{{challenge.description}} ... <a href="">read more</a></p>
-                <p>Type: {{challenge.type}}</p>
-                <p>Timeframe: {{challenge.timeframe}}</p>
-                <a ng-show="$parent.$storage.user.userId" ng-click="solveChallenge($challengeIdx)" type="button" class="btn btn-primary text-center">solve</a>
-                <a ng-show="!$parent.$storage.user.userId" type="button" class="btn btn-primary text-center" href="#/signup">signup to solve</a>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-3"><p><i class="fa fa-heart"></i> {{challenge.organizationId.cause}}</p></div>
+                    <div class="col-xs-3"><p><i class="fa fa-thumb-tack"></i> {{challenge.type}}</p></div>
+                    <div class="col-xs-3"><p><i class="fa fa-calendar"></i> {{challenge.timeframe}}</p></div>
+                    <div class="col-xs-3"><a ng-show="$parent.$storage.user.userId" ng-click="solveChallenge($challengeIdx)" type="button" class="btn btn-primary text-center">solve</a></div>
+                    <div class="col-xs-3"><a ng-show="!$parent.$storage.user.userId" type="button" class="btn btn-primary text-center" href="#/signup">signup to solve</a></div>
+                </div>
+                <hr>
             </div>
     </div>
 </div>

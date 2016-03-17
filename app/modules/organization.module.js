@@ -8,6 +8,7 @@ var organizationSchema = mongoose.Schema({
     website: { type: String},
     activityShort: { type: String},
     activityLong: { type: String},
+    cause: { type: String},
     impactLocation: { type: Array, default: ['Worldwide']},
     active: { type: Boolean, default: false},
     pending: { type: Boolean, default: true},

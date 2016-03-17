@@ -129,6 +129,12 @@ nav {
 .challenge-img {
   max-width: 200px;
   max-height: 200px;
+  padding-bottom: 10px;
+}
+
+.organization-name-link {
+  font-size: 1.8rem;
+
 }
 
 /*Chat*/

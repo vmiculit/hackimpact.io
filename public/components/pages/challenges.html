@@ -47,7 +47,7 @@
                     <div class="challenge-items col-xs-12 col-md-4 col-lg-3"><p><i class="fa fa-thumb-tack"></i> {{challenge.type}}</p></div>
                     <div class="challenge-items col-xs-12 col-md-4 col-lg-3"><p><i class="fa fa-calendar"></i> {{challenge.timeframe}}</p></div>
                     <div class="col-xs-12 col-md-12 col-lg-3"><a ng-show="$parent.$storage.user.userId" ng-click="solveChallenge($challengeIdx)" type="button" class="btn btn-primary text-center">solve</a></div>
-                    <div class="col-xs-12 col-md-12 col-lg-3"><a ng-show="!$parent.$storage.user.userId" type="button" class="btn btn-primary text-center" href="#/signup">signup to solve</a></div>
+                    <div class="col-xs-12 col-md-12 col-lg-3"><a ng-show="!$parent.$storage.user.userId" type="button" class="btn btn-primary text-center" href="/signup">signup to solve</a></div>
                 </div>
                 <hr>
             </div>

@@ -97,7 +97,7 @@ function shellCtrl($scope, $sessionStorage, $window, userFactory){
 		userFactory.userLogout().then(function(response){
 			if (response.data.status) {
 				$scope.$storage.$reset()
-				$window.location.href = '#/'
+				$window.location.href = '/'
 			}
 		})
 	}
@@ -133,11 +133,11 @@ function loginCtrl ($scope, $window, userFactory){
 			if(response.data.userId && response.data.userType == "coder") {
 				$scope.$storage.user = response.data
 				$scope.loginErrorMessage = ''
-				$window.location.href="#/coderDashboard"
+				$window.location.href="/coderDashboard"
 			} else if (response.data.userId && response.data.userType == "nonprofit") {
 				$scope.$storage.user = response.data
 				$scope.loginErrorMessage = ''
-				$window.location.href="#/nonprofitDashboard"
+				$window.location.href="/nonprofitDashboard"
 			} else {
 				$scope.loginErrorMessage = response.data.error
 				console.log(response.data.error);
@@ -163,7 +163,7 @@ function challengesCtrl ($scope, $window, challengeFactory){
 		var challengeId = $scope.activeChallenges[challengeIdx]._id
 
 		challengeFactory.commitCoderToChallenge(challengeId).then(function(response){
-			$window.location.href="#/coderDashboard"
+			$window.location.href="/coderDashboard"
 		})
 	}
 
@@ -183,11 +183,11 @@ function signupCtrl ($scope, $window, userFactory, Upload){
 				if(response.data.userId && response.data.userType == "coder") {
 					$scope.$storage.user = response.data
 					$scope.signupErrorMessage = ''
-					$window.location.href="#/challenges"
+					$window.location.href="/challenges"
 				} else if (response.data.userId && response.data.userType == "nonprofit") {
 					$scope.$storage.user = response.data
 					$scope.signupErrorMessage = ''
-					$window.location.href="#/nonprofitDashboard"
+					$window.location.href="/nonprofitDashboard"
 				} else {
 					$scope.signupErrorMessage = "Email already in use. Try again."
 					console.log(response.data.error);
@@ -210,11 +210,11 @@ $scope.registerErrorMessage = ''
 				if(response.data.userId && response.data.userType == "coder") {
 					$scope.$storage.user = response.data
 					$scope.registerErrorMessage = ''
-					$window.location.href="#/challenges"
+					$window.location.href="/challenges"
 				} else if (response.data.userId && response.data.userType == "nonprofit") {
 					$scope.$storage.user = response.data
 					$scope.registerErrorMessage = ''
-					$window.location.href="#/nonprofitDashboard"
+					$window.location.href="/nonprofitDashboard"
 				} else {
 					$scope.registerErrorMessage = "Email already in use. Try again."
 					console.log(response.data.error);
@@ -237,7 +237,7 @@ function submitChallengeCtrl ($scope, $window, challengeFactory){
 		challengeFactory.createChallenge($scope.challengeForm)
 			.then(function(response){
 				if(response.data.success) {
-					$window.location.href="#/nonprofitDashboard"
+					$window.location.href="/nonprofitDashboard"
 				} else {
 					$scope.submitChallengeErrorMessage = "Oops! Something went wrong."
 					console.log(response.data.error);

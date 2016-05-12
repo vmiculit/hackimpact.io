@@ -11,7 +11,7 @@ var sendgrid = require('../modules/email.module.js')
 // File Routes
 app.get('/', function(req, res){
   res.sendFile('index.html', {root : './public/templates'})
-});
+})
 
 
 // API Routes
@@ -32,6 +32,9 @@ app.get('/api/retrieveNonprofitChallenges', retrieveNonprofitChallenges)
 app.get('/api/retrieveActiveChallenges', retrieveActiveChallenges)
 app.post('/api/commitCoderToChallenge', commitCoderToChallenge)
 
+app.use(function(req, res){
+  res.sendFile('index.html', {root : './public/templates'})
+})
 
 // Functions
 

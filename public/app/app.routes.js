@@ -2,11 +2,19 @@
 angular.module('HackImpact')
 	.config([
 		'$routeProvider',
+		'$locationProvider',
 		routeConfigs,
 	]);
 
 // Routes
 function routeConfigs($routeProvider, $locationProvider){
+	
+	// Use HTML5 Location Provider
+	$locationProvider
+		.html5Mode({
+			enabled: true,
+			requireBase: true
+		});
 
 	// Define Routes
 	$routeProvider
